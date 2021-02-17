@@ -33,22 +33,19 @@ if __name__ == "__main__":
 	neural_network = NeuralNetwork()
 	print("Random starting synaptic weights: \n" + str(neural_network.synaptic_weights))
 	
-	array_ = []
+	url_to_check = input("URL to check: ")
 
-	with open("array_list.txt", "r") as array_list:
-		for item in array_list:
-			array_.append(str(item))
-		a, b = numberify(array_)
+	converted_examples, outputs, converted_url = numberify(url_to_check)
 
 	#training_set_inputs = array([[1, 0, 1, 0, 0], [0, 1, 1, 0, 0], [0, 1, 0, 0, 1], [1, 0, 0, 0, 1], [0, 1, 0, 1, 0]])
 	#training_set_outputs = array([[0, 1, 1, 1, 0]]).T
-	training_set_inputs = array(a)
-	training_set_outputs = array([b]).T
+	training_set_inputs = array(converted_examples)
+	training_set_outputs = array([outputs]).T
 	print(training_set_outputs)
 	neural_network.train(training_set_inputs, training_set_outputs, 10000)
 
 	print("New synaptic weights: ")
 	print(str(neural_network.synaptic_weights))
 
-	print(str(neural_network.think(array([1, 0, 0, 0, 0, 0, 0, 1]))))
+	print(str(neural_network.think(array(converted_url))))
 	#print("Considering new situation [1, 0, 0] -> ?: " + str(neural_network.think(array([1, 0, 0])))
